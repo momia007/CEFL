@@ -363,7 +363,7 @@ body {
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
-        width: 40%; /* Ancho del nombre del curso */
+        width: 30%; /* Ancho del nombre del curso */
     }
 
     .tabla_inscripciones th:nth-child(2),
