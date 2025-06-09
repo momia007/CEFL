@@ -365,19 +365,19 @@ body {
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
-        min-width: auto;  /* Ajusta según necesidad */
+        min-width: 25%;  /* Ajusta según necesidad */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(2),
     .tabla_inscripciones td:nth-child(2){
-        min-width: auto;  /* Ajusta según necesidad */
+        min-width: 25%;  /* Ajusta según necesidad */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(3),
     .tabla_inscripciones td:nth-child(3){
-        width: auto; /* Ancho del botón de inscripción */
+        width: 25%; /* Ancho del botón de inscripción */
     }
     
     .tabla_inscripciones th:nth-child(4),
