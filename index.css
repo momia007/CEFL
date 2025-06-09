@@ -350,7 +350,10 @@ body {
         margin: 0 auto; /* Sin márgenes */
         padding: 0; /* Sin relleno */
         border-collapse: collapse; /* Colapsar bordes */
-        font-size: 14px; /* Tamaño de fuente más pequeño */
+        font-size: 12px; /* Tamaño de fuente más pequeño */
+    }
+    .tabla_inscripciones td{
+        font-size: 10px; /* Tamaño de fuente más pequeño */
     }
 
     .tabla_inscripciones th, .tabla_inscripciones td {
