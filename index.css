@@ -24,7 +24,7 @@ body {
 }
 
 .banner-web {
-    width: 100vw; /* La imagen ocupará el ancho completo del contenedor */
+    width: 100%; /* La imagen ocupará el ancho completo del contenedor */
     height: auto; /* Ajusta automáticamente la altura según el ancho */
     object-fit: cover; /* asegura que ocupe todo el ancho de la pantalla sin deformarse */
 }
@@ -346,13 +346,16 @@ body {
 
     .tabla_inscripciones {
         width: 100%; /* Ancho completo */
-        margin: 0; /* Sin márgenes */
+        max-width: 1080px; /* Igual al límite del banner */
+        margin: 0 auto; /* Sin márgenes */
         padding: 0; /* Sin relleno */
+        border-collapse: collapse; /* Colapsar bordes */
+        font-size: 14px; /* Tamaño de fuente más pequeño */
     }
 
     .tabla_inscripciones th, .tabla_inscripciones td {
-        padding: 8px; /* Espaciado interno */
-        font-size: 14px; /* Tamaño de fuente más pequeño */
+        padding: 5px; /* Espaciado interno */
+        margin: 0;
     }
 
     .tabla_inscripciones th:nth-child(1),
