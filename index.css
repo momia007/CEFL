@@ -344,8 +344,33 @@ body {
 ***************************** PAGINA INSCRIPCIONES RESPONSIVA **************************
 *****************************************************************************************/
 
+    .tabla_inscripciones {
+        width: 100%; /* Ancho completo */
+        margin: 0; /* Sin márgenes */
+        padding: 0; /* Sin relleno */
+    }
+
+    .tabla_inscripciones th, .tabla_inscripciones td {
+        padding: 8px; /* Espaciado interno */
+        font-size: 14px; /* Tamaño de fuente más pequeño */
+    }
+
+    .tabla_inscripciones th:nth-child(1),
+    .tabla_inscripciones td:nth-child(1){
+        width: 40%; /* Ancho del nombre del curso */
+    }
+
+    .tabla_inscripciones th:nth-child(2),
+    .tabla_inscripciones td:nth-child(2){
+        width: 30%; /* Ancho del estado de inscripción */
+    }
+
+    .tabla_inscripciones th:nth-child(3),
+    .tabla_inscripciones td:nth-child(3){
+        width: 30%; /* Ancho del botón de inscripción */
+    }
     
-.tabla_inscripciones th:nth-child(4),
+    .tabla_inscripciones th:nth-child(4),
     .tabla_inscripciones td:nth-child(4),
     .tabla_inscripciones th:nth-child(5),
     .tabla_inscripciones td:nth-child(5){
