@@ -194,6 +194,7 @@ body {
     overflow-x: hidden;  /* Oculta las barras de desplazamiento solo en Index*/  
 }
 .tabla_inscripciones{
+    width: 100%;                              /*Ancho de la tabla*/
     background-color: rgba(5, 70, 248, 0.2);    /* Transparencia 20% */
     color: black;                               /* Color del texto */
     /*border: 5px solid rgb(8, 66, 152,.8);*/       /*Borde de la tabla*/
@@ -343,7 +344,8 @@ body {
 ***************************** PAGINA INSCRIPCIONES RESPONSIVA **************************
 *****************************************************************************************/
 
-    .tabla_inscripciones th:nth-child(4),
+    
+.tabla_inscripciones th:nth-child(4),
     .tabla_inscripciones td:nth-child(4),
     .tabla_inscripciones th:nth-child(5),
     .tabla_inscripciones td:nth-child(5){
