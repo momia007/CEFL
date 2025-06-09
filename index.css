@@ -359,16 +359,20 @@ body {
     .tabla_inscripciones th, .tabla_inscripciones td {
         padding: 5px; /* Espaciado interno */
         margin: 0;
+        min-width: 80px;  /* Ajusta según necesidad */
+        white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
-        width: 30%; /* Ancho del nombre del curso */
+        min-width: 80px;  /* Ajusta según necesidad */
+        white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(2),
     .tabla_inscripciones td:nth-child(2){
-        width: 30%; /* Ancho del estado de inscripción */
+        min-width: 80px;  /* Ajusta según necesidad */
+        white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(3),
