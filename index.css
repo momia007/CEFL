@@ -248,7 +248,7 @@ body {
 =====================PANTALLAS PEQUEÑAS=================
 ========================================================*/
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 1080px) {
 
     body {
     overflow: auto;  /* habilitamos las barras de desplazamiento */
