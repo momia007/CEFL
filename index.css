@@ -343,22 +343,15 @@ body {
 ***************************** PAGINA INSCRIPCIONES RESPONSIVA **************************
 *****************************************************************************************/
 
-    .tabla_inscripciones {
-        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
-        margin: 0 auto; /* Centra la tabla */
-        font-size: 14px; /* Tamaño de fuente más pequeño para pantallas pequeñas */
-    }
-
-    .tabla_inscripciones th, .tabla_inscripciones td {
-        padding: 8px; /* Reduce el padding para pantallas pequeñas */
-    }
-
-    .tabla_inscripciones tbody tr {
-        height: auto; /* Permite que las filas se ajusten al contenido */
+    .tabla_inscripciones th:nth-child(4),
+    .tabla_inscripciones td:nth-child(4),
+    .tabla_inscripciones th:nth-child(5),
+    .tabla_inscripciones td:nth-child(5){
+        display: none;
     }
 
     .btn-inscripcion {
-        width: 100%; /* Botón ocupa todo el ancho de la celda */
-        box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+        width: 100%;
+        text-align: center;
     }
 }
