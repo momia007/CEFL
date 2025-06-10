@@ -390,5 +390,6 @@ body {
     .btn-inscripcion {
         width: 100%;
         text-align: center;
+        background-color: red; /* Color de fondo del botón */
     }
 }
