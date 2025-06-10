@@ -239,7 +239,7 @@ body {
     font-weight:bold !important;
     color: rgb(10, 10, 20);  /* Color llamativo */
     font-size: 1.0em;
-    align-content: center;
+    text-align: center;
 }
 .tabla_inscripciones td{
     padding:6px;
@@ -356,6 +356,9 @@ body {
         padding: 0; /* Sin relleno */
         border-collapse: collapse; /* Colapsar bordes */
         font-size: 14px; /* Tamaño de fuente más pequeño */
+    }
+    .tabla_inscripciones tr{
+        height: 40px; /* Altura de las filas */
     }
     .tabla_inscripciones td{
         font-size: 12px; /* Tamaño de fuente más pequeño */
