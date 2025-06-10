@@ -359,25 +359,24 @@ body {
     .tabla_inscripciones th, .tabla_inscripciones td {
         padding: 5px; /* Espaciado interno */
         margin: 0;
-        min-width: 80px;  /* Ajusta según necesidad */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
-        min-width: auto;  /* Ajusta según necesidad */
+        min-width: 30px;  /* Ajusta según necesidad */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(2),
     .tabla_inscripciones td:nth-child(2){
-        min-width: 25%;  /* Ajusta según necesidad */
+        min-width: 30px;  /* Ajusta según necesidad */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(3),
     .tabla_inscripciones td:nth-child(3){
-        width: 25%; /* Ancho del botón de inscripción */
+        width: 30px; /* Ancho del botón de inscripción */
     }
     
     .tabla_inscripciones th:nth-child(4),
