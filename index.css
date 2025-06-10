@@ -239,10 +239,12 @@ body {
     font-weight:bold !important;
     color: rgb(10, 10, 20);  /* Color llamativo */
     font-size: 1.0em;
+    align-content: center;
 }
 .tabla_inscripciones td{
     padding:6px;
     font-size: 85%;
+    text-align: center;
 }
 /*======================================================
 =====================RESPONSIVIDAD PARA=================
