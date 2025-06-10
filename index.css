@@ -366,7 +366,7 @@ body {
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
         min-width: 30px;  /* Ajusta según necesidad */
-        white-space: nowrap; /* Evita que el texto se parta */
+     /*   white-space: nowrap;  Evita que el texto se parta */
     }
 
     .tabla_inscripciones th:nth-child(2),
