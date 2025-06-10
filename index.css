@@ -269,7 +269,7 @@ body {
 
     .menu-toggle {
         display: block;
-        font-size: 30px;
+        font-size: 50px;
         padding: 10px;
         background: none;
         border: none;
@@ -285,15 +285,18 @@ body {
         padding: 10px;
         color: white;
         background: rgba(40, 25, 165, 0.50);
-        -webkit-background-filter:blur(10px);
+        backdrop-filter: blur(10px);
+        font-size: 16px;
+        font-weight: bold;
         border-radius: 5px;
         cursor: pointer;
         border: 1px solid rgb(255,255, 255, 0.2);
-        transition: all 0.3 ease;
+        transition: all 0.3s ease;
     }
 
     .Button_menu:hover{
-        background: rgba(40, 25, 165, 0.50);
+        background: rgba(40, 25, 165, 0.70);
+        transition: transform 0.3s ease, background 0.3s ease;
         transform: scale(1.1);
     }
     
@@ -350,29 +353,29 @@ body {
         margin: 0 auto; /* Sin márgenes */
         padding: 0; /* Sin relleno */
         border-collapse: collapse; /* Colapsar bordes */
-        font-size: 12px; /* Tamaño de fuente más pequeño */
+        font-size: 14px; /* Tamaño de fuente más pequeño */
     }
     .tabla_inscripciones td{
-        font-size: 10px; /* Tamaño de fuente más pequeño */
+        font-size: 12px; /* Tamaño de fuente más pequeño */
     }
 
     .tabla_inscripciones th, .tabla_inscripciones td {
         padding: 5px; /* Espaciado interno */
         margin: 0;
         min-width: 50px; /* Ancho mínimo para celdas */
-        white-space: nowrap; /* Evita que el texto se parta */
+        white-space:pre-wrap; /*Permite que el texto se divida en varias lineas si es necesario */
     }
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
         max-width: 30px;  /* Ajusta según necesidad */
-        white-space: nowrap; /* Evita que el texto se parta */
+        white-space: pre-wrap; /*Permite que el texto se divida en varias lineas si es necesario */
     }
 
     .tabla_inscripciones th:nth-child(2),
     .tabla_inscripciones td:nth-child(2){
         min-width: 30px;  /* Ajusta según necesidad */
-        white-space: nowrap; /* Evita que el texto se parta */
+        white-space: pre-wrap; /*Permite que el texto se divida en varias lineas si es necesario */
     }
 
     .tabla_inscripciones th:nth-child(3),
@@ -390,6 +393,6 @@ body {
     .btn-inscripcion {
         width: 100%;
         text-align: center;
-        background-color: red; /* Color de fondo del botón */
+        background-color: blue; /* Color de fondo del botón */
     }
 }
