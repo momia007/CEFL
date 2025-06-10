@@ -359,6 +359,7 @@ body {
     .tabla_inscripciones th, .tabla_inscripciones td {
         padding: 5px; /* Espaciado interno */
         margin: 0;
+        min-width: 50px; /* Ancho mínimo para celdas */
         white-space: nowrap; /* Evita que el texto se parta */
     }
 
