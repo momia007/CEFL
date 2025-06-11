@@ -76,15 +76,6 @@ body {
     background-color: #084298;
     border-radius: 5px;
 }
-.menu-toggle {
-    display: none; /* Ocultar en pantallas grandes */
-    background: none;
-    border: none;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-}
 .Button_menu{
     display: none;
 }
@@ -267,16 +258,6 @@ body {
         position: relative;
         width: 100%;
         background-color: #0d6efd;
-    }
-
-    .menu-toggle {
-        display: block;
-        font-size: 50px;
-        padding: 10px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: white;
     }
 
     .Button_menu{
