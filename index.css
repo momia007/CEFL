@@ -377,7 +377,7 @@ body {
 
     .tabla_inscripciones th:nth-child(1),
     .tabla_inscripciones td:nth-child(1){
-        max-width: 30px;  /* Ajusta según necesidad */
+   /*     max-width: 30px;  /* Ajusta según necesidad */
         white-space: pre-wrap; /*Permite que el texto se divida en varias lineas si es necesario */
     }
 
