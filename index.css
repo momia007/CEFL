@@ -361,7 +361,8 @@ body {
         height: 40px; /* Altura de las filas */
     }
     .tabla_inscripciones tbody tr td:first-child {
-        text-align: center; /* Centrar texto */
+        text-align: center !important; /* Centrar texto */
+        width: 150px;
     }
     .tabla_inscripciones td{
         font-size: 12px; /* Tamaño de fuente más pequeño */
