@@ -76,10 +76,10 @@ body {
     background-color: #084298;
     border-radius: 5px;
 }
-.Button_menu{
+
+.Button_menu {
     display: none;
 }
-
 /*====================================================
 =======================CUERPO DE PAGINA===============
 ======================================================*/
@@ -281,6 +281,10 @@ body {
         background: rgba(40, 25, 165, 0.70);
         transition: transform 0.3s ease, background 0.3s ease;
         transform: scale(1.1);
+    }
+
+    .home-button {
+        display: flex;
     }
     
     .lista-barra.active {
