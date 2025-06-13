@@ -237,6 +237,12 @@ body {
     font-size: 85%;
     text-align: center;
 }
+#countdown {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+}
 /*======================================================
 =====================RESPONSIVIDAD PARA=================
 =====================PANTALLAS PEQUEÑAS=================
@@ -264,7 +270,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 2%;
+        margin-left:47%;
         padding: 10px;
         color: white;
         background: rgba(40, 25, 165, 0.50);
@@ -281,10 +287,6 @@ body {
         background: rgba(40, 25, 165, 0.70);
         transition: transform 0.3s ease, background 0.3s ease;
         transform: scale(1.1);
-    }
-
-    .home-button {
-        display: flex;
     }
     
     .lista-barra.active {
