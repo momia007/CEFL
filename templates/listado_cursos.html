@@ -1,0 +1,40 @@
+{% extends 'parciales/base.html' %}
+
+{% block titulo %}Listado de Cursos Activos{% endblock %}
+
+{% block estilos_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tablas.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<h2>Cursos activos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Nombre para mostrar</th>
+            <th>Hora de inicio</th>
+            <th>Hora de fin</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for curso in cursos %}
+        <tr>
+            <td>{{ curso.id_curso }}</td>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.nikname }}</td>
+            <td>{{ curso.hora_inicio }}</td>
+            <td>{{ curso.hora_fin }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="botones-admin">
+    <a href="{{ url_for('menu.admin_cursos') }}" class="btn">➕ Nuevo</a>
+    <a href="#" class="btn btn-disabled">✏️ Modificar</a> <!-- funcionalidad futura -->
+    <a href="{{ url_for('menu.inicio') }}" class="btn">↩️ Cancelar</a>
+</div>
+{% endblock %}

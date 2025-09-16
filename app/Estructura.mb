@@ -1,0 +1,39 @@
+# Estructura del Proyecto - App de Inscripción
+
+mi_app/
+│
+├── app/                      # Lógica principal de la aplicación
+│   ├── __init__.py           # Inicializa la app (Flask/FastAPI)
+│   ├── rutas/                # Módulos de rutas (inscripción, admin, etc.)
+│   │   ├── __init__.py
+│   │   └── inscripcion.py    # Ruta para el formulario de inscripción
+│   ├── modelos/              # Modelos de base de datos
+│   │   ├── __init__.py
+│   │   └── usuario.py        # Modelo de usuario/inscripción
+│   ├── servicios/            # Lógica de negocio (validaciones, etc.)
+│   │   └── inscripcion.py
+│   └── config.py             # Configuración general (DB, entorno, etc.)
+│
+├── templates/                # Archivos HTML (usando Jinja2)
+│   ├── inscripcion.html      # Página principal del formulario
+│   ├── encabezado.html       # Header modular
+│   ├── pie.html              # Footer modular
+│   └── base.html             # Template base si usamos herencia
+│
+├── static/                   # Archivos estáticos
+│   ├── css/
+│   │   └── estilos.css       # Estilos globales
+│   ├── js/
+│   │   └── validaciones.js   # JS para validaciones o interacciones
+│   └── img/                  # Imágenes (logos, fondos, etc.)
+│
+├── database/                 # Archivos relacionados a la base de datos
+│   ├── schema.sql            # Script de creación de tablas
+│   └── init_db.py            # Inicialización de la base de datos
+│
+├── tests/                    # Pruebas unitarias y de integración
+│   └── test_inscripcion.py
+│
+├── .env                      # Variables de entorno (DB, claves, etc.)
+├── requirements.txt          # Dependencias del proyecto
+└── run.py                    # Punto de entrada para ejecutar la app

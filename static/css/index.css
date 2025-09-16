@@ -12,6 +12,18 @@ html, body {
     flex-direction: column;
 }
 
+.version-tag {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    /*background-color: rgba(0, 0, 0, 0.6);*/
+    color: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    z-index: 10;
+}
+
 #main-content {
     flex: 1; /* Esto empuja el footer hacia abajo */
 }

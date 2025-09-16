@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFLMB</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/LOGO_') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body id="body_inscripciones">
+    {% block contenido %}{% endblock %}
+<!-- ***********************************************************************************
+**************************** PIE DE PAGINA ****************************************
+***********************************************************************************
+ -->
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="https://www.Instagram.com/ceflmanuelbelgrano?igsh=eHN0NXFkajFrd28z" target="_blank" class="footer-link">
+                <img src="{{ url_for('static', filename='img/Instagram.png') }}" alt="Instagram">
+            </a>
+            <a href="https://www.Facebook.com/people/Manuel-Belgrano/100013779649519/" target="_blank" class="footer-link">
+                <img src="{{ url_for('static', filename='img/Facebook.png') }}" alt="Facebook">
+            </a>
+            <a href="https://wa.me/+5492964511886" target="_blank" class="footer-link">
+                <img src="{{ url_for('static', filename='img/WhatsApp.png') }}" alt="WhatsApp">
+            </a>
+            <a href="https://www.google.com/maps/place/Centro+Educativo+y+de+Formaci%C3%B3n+Laboral+Dr.+Manuel+Belgrano/@-53.8046426,-67.6832727,16z/data=!4m10!1m2!2m1!1sminkiol+119!3m6!1s0xbc4b16e58a927e0d:0xd0f53a5761aa249f!8m2!3d-53.8046285!4d-67.6742531!15sCgttaW5raW9sIDExOVoNIgttaW5raW9sIDExOZIBEGVkdWNhdGlvbl9jZW50ZXKaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVUjFlWEJwUzJKQkVBReABAPoBBAgAECY!16s%2Fg%2F11cmd8373d?entry=ttu&g_ep=EgoyMDI1MDMyNS4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="footer-link">
+                <img src="{{ url_for('static', filename='img/ubicacion.png') }}" alt="Ubicación">
+            </a>
+            <div class="hover-icon">
+                <img src="{{ url_for('static', filename='img/icono-telefono.png') }}" class="default-img" alt="Icono Normal">
+                <img src="{{ url_for('static', filename='img/icono-telefono2.png') }}" class="hover-img" alt="Icono Hover">
+            </div>
+            <a href="mailto:ceflmb@gmail.com" class="footer-link">
+                <img src="{{ url_for('static', filename='img/mail.png') }}" alt="Correo">
+            </a>
+        </div> 
+        <div>
+            <hr>
+            <img class="membretepp" src="{{ url_for('static', filename='img/membrete 2025.png') }}" alt="membrete año en curso">
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+</body>
+</html>

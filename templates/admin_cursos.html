@@ -1,0 +1,76 @@
+{% extends 'parciales/base.html' %}
+
+{% block estilos_extra %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+
+{% block titulo %}Carga de Cursos{% endblock %}
+
+{% block contenido %}
+<h2>Cargar nuevo curso</h2>
+
+<form method="POST" action="{{ url_for('menu.admin_cursos') }}">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
+
+    <label>Nombre para mostrar (nikname):</label>
+    <input type="text" name="nikname" required>
+
+    <label>Descripción:</label>
+    <textarea name="descripcion"></textarea>
+
+    <label>Cuatrimestre:</label>
+    <input type="number" name="cuatrimestre" min="1" max="2">
+
+    <label>Año:</label>
+    <input type="number" name="anio" min="2020" max="2030" required>
+
+    <label>Modalidad:</label>
+    <select name="modalidad" required>
+        <option value="">-- Seleccionar --</option>
+        <option value="anual">Anual</option>
+        <option value="cuatrimestral">Cuatrimestral</option>
+    </select>
+
+    <div class="time-group">
+        <div class="field">
+            <label for="hora_inicio">Hora de inicio:</label>
+            <input type="time" id="hora_inicio" name="hora_inicio">
+        </div>
+        <div class="field">
+            <label for="hora_fin">Hora de fin:</label>
+            <input type="time" id="hora_fin" name="hora_fin">
+        </div>
+    </div>
+
+    <label>Días:</label>
+    <select name="dias" multiple>
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miercoles">Miércoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+    </select>
+
+    <div class="checkbox-group">
+        <label for="activo">Activo:</label>
+        <input type="checkbox" id="activo" name="activo" value="1" checked>
+    </div>
+
+    <button type="submit">Guardar curso</button>
+</form>
+{% endblock %}
+
+
+{% block scripts_extra %}
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+    const btn = this.querySelector("button[type='submit']");
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "Guardando...";
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends 'parciales/base.html' %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block estilos_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inscripciones.css') }}">
+{% endblock %}
+
+{% block contenido %}
+    <main class="contenedor">
+        <h1>Formulario de Inscripción</h1>
+        <p>Seleccioná el curso al que querés inscribirte y completá tus datos.</p>
+
+        <div class="campo">
+            <label for="nikname">Curso:</label>
+            <select id="nikname" name="nikname" required>
+                <option value="">-- Seleccionar curso --</option>
+                {% for nik in cursos_por_nik %}
+                    <option value="{{ nik }}">{{ nik }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="horario">Horario:</label>
+            <select id="horario" name="horario" disabled>
+                <option value="">-- Seleccionar horario --</option>
+            </select>
+
+            <label id="dias-label" class="dias-info" style="margin-top: 1rem; display: none;">
+                Días: <span id="dias-texto"></span>
+            </label>
+
+        </div>
+
+        <form id="form-inscripcion" method="POST" action="/inscribirse">
+            <div class="campo">
+                <label for="apellido">Apellido/s:</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="campo">
+                <label for="nombre">Nombre/s completo/s:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="campo">
+                <label for="dni">DNI N°:</label>
+                <input type="text" id="dni" name="dni" required>
+            </div>
+
+            <div class="campo">
+                <label for="cuil">CUIL N°:</label>
+                <input type="text" id="cuil_prefijo" name="cuil_prefijo" required>
+                <input type="text" id="cuil_numero" name="cuil_numero" required>
+                <input type="text" id="cuil_sufijo" name="cuil_sufijo" required>
+            </div>
+
+            <div class="campo">
+                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            </div>
+
+            <div class="campo">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                    <option value="X">Otro</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="pais_nac">País de Nacimiento:</label>
+                <select id="pais_nac" name="pais_nac" required>
+                    {% for pais in paises %}
+                        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="nacionalidad">Nacionalidad:</label>
+                <select id="nacionalidad" name="nacionalidad" required>
+                    {% for pais in paises %}
+                        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="provincia_nac">Provincia de Nacimiento:</label>
+                <select id="provincia_nac" name="provincia_nac" required>
+                    {% for provincia in provincias %}
+                        <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="lugar_nac">Lugar_nac:</label>
+                <select id="localidad_nac" name="localidad_nac" required>
+                    <input type="text" id="localidad_nac" name="localidad_nac" required>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="direccion">Dirección:</label>
+                <input id="direccion" name="direccion" required>
+            </div>
+
+            <div class="barrio">
+                <label for="barrio">Barrio:</label>
+                <input type="text" id="barrio" name="barrio">
+            </div>
+
+            <div class="campo">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="campo">
+                <label for="estudios">Nivel de estudios alcanzado:</label>
+                <select id="estudios" name="estudios" required>
+                    {% for estudio in estudios %}
+                        <option value="{{ estudio.id }}">{{ estudio.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="estado_laboral:">Estado Laboral</label>
+                <select id="estado_laboral" name="estado_laboral" required>
+                    {% for estado in estados_laborales %}
+                        <option value="{{ estado.id }}">{{ estado.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="cud">¿Posee certificado de discapacidad? :</label>
+                <select id="cud" name="cud" required>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            
+            <button type="submit">Inscribirme</button>
+        </form>
+    </main>
+
+{% endblock %}
+{% block scripts_extra %}
+
+    <script id="data-cursos" type="application/json">
+        {{ cursos_por_nik | tojson | safe }}
+    </script>
+
+    <script>
+    const cursosPorNik = JSON.parse(document.getElementById('data-cursos').textContent);
+    const nikSelect = document.getElementById('nikname');
+    const horarioSelect = document.getElementById('horario');
+
+    nikSelect.addEventListener('change', function() {
+        const nik = this.value;
+        const opciones = cursosPorNik[nik] || [];
+
+        // Limpiar horarios
+        horarioSelect.innerHTML = '';
+
+        if (opciones.length === 1) {
+            const unica = opciones[0];
+            const opt = document.createElement('option');
+            opt.value = unica.id;
+            opt.textContent = `${unica.horario}`;
+            horarioSelect.appendChild(opt);
+            horarioSelect.disabled = true;
+        } else if (opciones.length > 1) {
+            const defaultOpt = document.createElement('option');
+            defaultOpt.value = '';
+            defaultOpt.textContent = '-- Seleccionar horario --';
+            horarioSelect.appendChild(defaultOpt);
+
+            opciones.forEach(op => {
+                const opt = document.createElement('option');
+                opt.value = op.id;
+                opt.textContent = `${op.horario}`;
+                horarioSelect.appendChild(opt);
+            });
+            horarioSelect.disabled = false;
+        } else {
+            horarioSelect.innerHTML = '<option value="">Sin horarios disponibles</option>';
+            horarioSelect.disabled = true;
+        }
+
+        const diasLabel = document.getElementById('dias-label');
+        const diasTexto = document.getElementById('dias-texto');
+
+        if (opciones.length >= 1) {
+            diasTexto.textContent = opciones[0].dias.replace(/,/g, ', ');
+            diasLabel.style.display = 'block';
+        } else {
+            diasTexto.textContent = '';
+            diasLabel.style.display = 'none';
+        }
+
+    });
+    </script>
+{% endblock %}
+

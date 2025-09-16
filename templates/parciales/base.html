@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}CFLMB{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+    <!-- Estilos específicos por página -->
+    {% block estilos_extra %}{% endblock %}
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/LOGO_sin_fondo.png') }}">
+</head>
+<body id="body_inscripciones">
+
+    {% include 'parciales/encabezado.html' %}
+    {% include 'parciales/barra_menu.html' %}
+
+    <main>
+        {% block contenido %}{% endblock %}
+    </main>
+
+    {% include 'parciales/pie.html' %}
+    
+    {% block scripts_extra %}
+    {% endblock %}
+
+</body>
+</html>
