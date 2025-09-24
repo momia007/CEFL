@@ -14,7 +14,7 @@
         <div class="campo">
             <label for="nikname">Curso:</label>
             <select id="nikname" name="nikname" required>
-                <option value="">-- Seleccionar curso --</option>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
                 {% for nik in cursos_por_nik %}
                     <option value="{{ nik }}">{{ nik }}</option>
                 {% endfor %}
@@ -22,7 +22,7 @@
 
             <label for="horario">Horario:</label>
             <select id="horario" name="horario" disabled>
-                <option value="">-- Seleccionar horario --</option>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
             </select>
 
             <label id="dias-label" class="dias-info" style="margin-top: 1rem; display: none;">
@@ -43,15 +43,13 @@
             </div>
 
             <div class="campo">
-                <label for="dni">DNI N°:</label>
-                <input type="text" id="dni" name="dni" required>
+                <label for="dni">DNI (solo numeros):</label>
+                <input type="text" id="dni" name="dni" maxlength="8" required>
             </div>
 
             <div class="campo">
-                <label for="cuil">CUIL N°:</label>
-                <input type="text" id="cuil_prefijo" name="cuil_prefijo" required>
-                <input type="text" id="cuil_numero" name="cuil_numero" required>
-                <input type="text" id="cuil_sufijo" name="cuil_sufijo" required>
+                <label for="cuil">CUIL N° (solo numeros):</label>
+                <input type="text" id="cuil" name="cuil" maxlength="11" pattern="\d{11}" required>
             </div>
 
             <div class="campo">
@@ -62,6 +60,7 @@
             <div class="campo">
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo" required>
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
                     <option value="F">Femenino</option>
                     <option value="M">Masculino</option>
                     <option value="X">Otro</option>
@@ -71,6 +70,7 @@
             <div class="campo">
                 <label for="pais_nac">País de Nacimiento:</label>
                 <select id="pais_nac" name="pais_nac" required>
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
                     {% for pais in paises %}
                         <option value="{{ pais.id }}">{{ pais.nombre }}</option>
                     {% endfor %}
@@ -80,6 +80,7 @@
             <div class="campo">
                 <label for="nacionalidad">Nacionalidad:</label>
                 <select id="nacionalidad" name="nacionalidad" required>
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
                     {% for pais in paises %}
                         <option value="{{ pais.id }}">{{ pais.nombre }}</option>
                     {% endfor %}
@@ -89,6 +90,7 @@
             <div class="campo">
                 <label for="provincia_nac">Provincia de Nacimiento:</label>
                 <select id="provincia_nac" name="provincia_nac" required>
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
                     {% for provincia in provincias %}
                         <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
                     {% endfor %}
@@ -97,7 +99,6 @@
 
             <div class="campo">
                 <label for="lugar_nac">Lugar_nac:</label>
-                <select id="localidad_nac" name="localidad_nac" required>
                     <input type="text" id="localidad_nac" name="localidad_nac" required>
                 </select>
             </div>
@@ -119,38 +120,41 @@
             
             <div class="campo">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required placeholder="ejemplo@dominio.com">>
             </div>
 
             <div class="campo">
                 <label for="estudios">Nivel de estudios alcanzado:</label>
                 <select id="estudios" name="estudios" required>
-                    {% for estudio in estudios %}
-                        <option value="{{ estudio.id }}">{{ estudio.nombre }}</option>
-                    {% endfor %}
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
+                    <option value="primario incompleto">Primario incompleto</option>
+                    <option value="primario completo">Primario completo</option>
+                    <option value="secundario incompleto">Secundario incompleto</option>
+                    <option value="secundario incompleto">Secundario completo</option>
                 </select>
             </div>
 
             <div class="campo">
                 <label for="estado_laboral:">Estado Laboral</label>
                 <select id="estado_laboral" name="estado_laboral" required>
-                    {% for estado in estados_laborales %}
-                        <option value="{{ estado.id }}">{{ estado.nombre }}</option>
-                    {% endfor %}
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
+                    <option value="desempleado">Desempleado</option>
+                    <option value="empleado">Empleado</option>
                 </select>
             </div>
 
             <div class="campo">
                 <label for="cud">¿Posee certificado de discapacidad? :</label>
                 <select id="cud" name="cud" required>
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
+                    <option value="" disabled selected>-- Seleccionar opción --</option>
+                    <option value="Si">No</option>
+                    <option value="No">Si</option>
                 </select>
             </div>
 
             <div class="campo">
                 <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" required>
             </div>
             
             <button type="submit">Inscribirme</button>
@@ -168,6 +172,17 @@
     const cursosPorNik = JSON.parse(document.getElementById('data-cursos').textContent);
     const nikSelect = document.getElementById('nikname');
     const horarioSelect = document.getElementById('horario');
+
+
+    document.getElementById('dni').addEventListener('input', function (e) {
+        // Eliminar todo lo que no sea dígito
+        this.value = this.value.replace(/\D/g, '');
+
+        // Limitar a 8 caracteres
+        if (this.value.length > 8) {
+            this.value = this.value.slice(0, 8);
+        }
+    });
 
     nikSelect.addEventListener('change', function() {
         const nik = this.value;

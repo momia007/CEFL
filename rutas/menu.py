@@ -1,22 +1,29 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from servicios.slider import obtener_slider
+from servicios.utils import ordenar_paises
 from servicios.paises import obtener_paises
+from servicios.provincias import obtener_provincias
 from servicios.cursos import insertar_curso
 from servicios.cursos import obtener_cursos
 from collections import defaultdict
 from servicios.utils import formatear_hora
-from servicios.utils import obtener_version
 
 
 menu_bp = Blueprint('menu', __name__)
 
 @menu_bp.route('/')
 def inicio():
-    return render_template('inicio.html')
-
+    slider = obtener_slider('slider_inicio')  # Ajusta el nombre de la carpeta según sea necesario
+    return render_template('inicio.html', slider=slider)
 
 @menu_bp.route('/inscripciones')
 def inscripciones():
-    paises = obtener_paises()
+
+    paises_raw = obtener_paises()
+    paises = ordenar_paises(paises_raw)
+
+    provincias = obtener_provincias()
+
     cursos_raw = obtener_cursos()
 
     cursos_por_nik = defaultdict(list)
@@ -32,9 +39,13 @@ def inscripciones():
             'modalidad': curso['modalidad'],
             'dias': dias
         })
+    print("Provincias:", provincias)
+    return render_template('inscripciones.html', paises=paises, provincias=provincias, cursos_por_nik=cursos_por_nik)
 
-    return render_template('inscripciones.html', paises=paises, cursos_por_nik=cursos_por_nik)
-
+@menu_bp.route('/eventos')
+def eventos():
+    slider_e = obtener_slider('slider_eventos')  # Ajusta el nombre de la carpeta según sea necesario
+    return render_template('eventos.html', slider=slider_e)
 
 @menu_bp.route('/admin/cursos', methods=['GET', 'POST'])
 def admin_cursos():

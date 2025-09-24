@@ -14,3 +14,14 @@ def obtener_version():
             return f.read().strip()
     except FileNotFoundError:
         return "desconocida"
+    
+def ordenar_paises(paises):
+    if not paises:
+        return []
+
+    paises_dict = [{'id': p['id'], 'nombre': p['nombre']} for p in paises if 'id' in p and 'nombre' in p]
+
+    return sorted(
+        paises_dict,
+        key=lambda p: (p['nombre'].strip().lower() == 'otro', p['nombre'].lower())
+    )

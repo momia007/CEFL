@@ -12,5 +12,4 @@ def obtener_paises():
     conn.close()
     return paises
 
-from .db import get_connection
 

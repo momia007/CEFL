@@ -1,0 +1,68 @@
+.carrusel-container {
+    overflow-x: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.carrusel-track {
+    display: inline-flex;
+    gap: 20px;
+}
+
+.carrusel-item {
+    flex: 0 0 auto;
+    width: 26%;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.carrusel-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.leyenda {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 8px;
+    font-size: 0.95em;
+    text-align: center;
+}
+
+
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carrusel-container:hover .carrusel-btn {
+    opacity: 1;
+}
+
+.carrusel-btn.izquierda {
+    left: 10px;
+}
+
+.carrusel-btn.derecha {
+    right: 10px;
+}
