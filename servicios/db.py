@@ -1,6 +1,7 @@
 import os
 import pymysql
 from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv()
 
@@ -16,3 +17,5 @@ def get_connection():
     except pymysql.MySQLError as err:
         print(f"Error de conexión: {err}")
         return None
+
+db = SQLAlchemy()

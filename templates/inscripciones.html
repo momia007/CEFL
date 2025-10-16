@@ -27,6 +27,7 @@
 
             <label id="dias-label" class="dias-info" style="margin-top: 1rem; display: none;">
                 Días: <span id="dias-texto"></span>
+                <p></p>
             </label>
 
         </div>
@@ -228,6 +229,31 @@
         }
 
     });
+    horarioSelect.addEventListener('change', function () {
+        const nik = nikSelect.value;
+        const opciones = cursosPorNik[nik] || [];
+        const horarioSeleccionado = this.value;
+
+        const seleccion = opciones.find(op => op.id == horarioSeleccionado);
+
+        const diasLabel = document.getElementById('dias-label');
+        const diasTexto = document.getElementById('dias-texto');
+
+        if (!horarioSeleccionado || horarioSeleccionado === '') {
+            diasTexto.textContent = '';
+            diasLabel.style.display = 'none';
+            return;
+        }
+
+        if (seleccion && seleccion.dias) {
+            diasTexto.textContent = seleccion.dias.replace(/,/g, ', ');
+            diasLabel.style.display = 'block';
+        } else {
+            diasTexto.textContent = '';
+            diasLabel.style.display = 'none';
+        }
+    });
+
     </script>
 {% endblock %}
 

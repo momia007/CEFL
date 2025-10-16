@@ -1,0 +1,39 @@
+<!--- html basico para logueo con inbox para usuario con su respectivo label
+ e inbox para la contraseña tambien con su respectivo label-->
+
+ {% extends 'parciales/base.html' %}
+
+{% block estilos_extra %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+
+{% block titulo %}Carga de Cursos{% endblock %}
+
+{% block contenido %}
+<h2>Login</h2>
+
+<!--- Muestra mensajes flash si existen --->
+{% with mensajes = get_flashed_messages() %}
+  {% if mensajes %}
+    <ul class="flashes">
+      {% for mensaje in mensajes %}
+        <li>{{ mensaje }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<!--- Formulario de login que envía datos a la ruta de login del módulo de login --->
+<form method="POST" action="{{ url_for('modulo_login.login') }}">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Iniciar Sesión</button>
+
+</form>
+{% endblock %}
+    

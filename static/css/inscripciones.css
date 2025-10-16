@@ -76,6 +76,14 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
     background-color: #005fa3;
 }
+/* para cambiar el color del texto del label dias */
+.dias-info {
+    color: #0077cc;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    background-color: burlywood;
+}
 
 /* Responsive */
 @media (max-width: 600px) {
@@ -83,9 +91,7 @@ form button[type="submit"]:hover {
         padding: 10px;
     }
 
-    form input,
-    form select,
-    form textarea {
+    form input, form select, form textarea {
         font-size: 0.95rem;
     }
 
