@@ -108,16 +108,14 @@ html, body {
 
 .contenedores {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    max-width: 1400px;
-    margin: 0;
+    width: 100vw;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
     padding: 0;
-    padding-top: 40px;
-    padding-bottom: 20px;
+    margin: 0;
+    overflow: hidden;
 }
 
 .contenedores img { /* Imágenes dentro del contenedor */
@@ -343,6 +341,30 @@ html, body {
         width: 100%;
         padding: 10px;
     }
+    /****************************/
+    /* para carrusel de imagenes
+    /****************************/
+    .contenedores {
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+    }
+    .contenedores img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .carousel-item {
+        height: 100vh;
+    }
+    .carousel-item img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* ********************************************/
+    /* Estilos del footer para pantallas pequeñas */
+    /* ********************************************/
 
     .footer-container {
         flex-wrap: wrap; /* Permitir que se acomoden si el espacio es muy reducido */

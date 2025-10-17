@@ -13,6 +13,7 @@
 
 .carrusel-item {
     flex: 0 0 auto;
+    height: 46.5vh;
     width: 26%;
     position: relative;
     border-radius: 8px;
@@ -65,4 +66,17 @@
 
 .carrusel-btn.derecha {
     right: 10px;
+}
+
+/* Responsivo para pantallas grandes */
+@media (max-width: 820px) {
+    .carrusel-item {
+        height: 62vh;
+        flex: 0 0 37%;
+        margin: 0 10px;
+    }
+
+    .leyenda {
+        font-size: 1em;
+    }
 }

@@ -10,7 +10,7 @@
 
 <div class="carrusel-container">
     <button class="carrusel-btn izquierda" onclick="moverCarrusel(-1)">‹</button>
-    <div class="carrusel-track" id="carruselTrack">
+    <div class="carrusel-track" id="carrusel-track">
         {% for item in slider %}
         <div class="carrusel-item">
             <img src="{{ url_for('static', filename='img/' ~ item.img) }}" alt="Imagen">
