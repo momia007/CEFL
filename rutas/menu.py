@@ -82,3 +82,9 @@ def admin_cursos():
 def listado_cursos():
     cursos = obtener_cursos()
     return render_template('listado_cursos.html', cursos=cursos)
+
+@menu_bp.route('/admin/inicio_usuarios')
+def inicio_usuarios():
+    return render_template('inicio_usuarios.html')
+
+

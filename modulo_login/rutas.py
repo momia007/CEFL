@@ -19,7 +19,7 @@ def login():
             print("Contraseña válida")
             session['usuario_id'] = usuario.id_usuario
             flash('Login exitoso')
-            return redirect(url_for('menu.inicio'))
+            return redirect(url_for('menu.inicio_usuarios'))
         else:
             print("Credenciales inválidas")
             flash('Credenciales inválidas')

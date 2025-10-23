@@ -13,14 +13,13 @@ if not "!password!"=="!confirm!" (
     exit /b
 )
 
-:: Generar hash SHA-256
-echo !password! | powershell -Command "[Text.Encoding]::UTF8.GetBytes((Get-Content -Raw -)) | % { $_ } | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString | Out-String" > nul
-for /f %%H in ('echo !password! ^| powershell -Command "Get-FileHash -Algorithm SHA256 -InputStream ([System.IO.MemoryStream]::new([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Raw -)))) | Select-Object -ExpandProperty Hash"') do set "hash=%%H"
+:: Generar hash SHA-256 correctamente
+for /f "delims=" %%H in ('powershell -Command "[System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes('%password%'))).Replace('-','')"') do set "hash=%%H"
 
+:: Mostrar y copiar
 echo ✅ Hash generado: !hash!
-
-:: Copiar al portapapeles
 echo !hash! | clip
 echo 📋 Hash copiado al portapapeles
 
 pause
+
