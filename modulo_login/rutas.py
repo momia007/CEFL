@@ -1,3 +1,5 @@
+# modulo_login/rutas.py
+
 # login, logout, perfil
 from flask import render_template, request, redirect, url_for, session, flash
 from modulo_login.blueprint import modulo_login_bp
@@ -16,14 +18,18 @@ def login():
         print("Usuario encontrado:", usuario)
 
         if usuario and usuario.verificar_password(request.form['password']):
+            session['usuario'] = {
+                'id': usuario.id_usuario,
+                'nombre': usuario.username,
+                'nivel': usuario.nivel
+}
             print("Contraseña válida")
             session['usuario_id'] = usuario.id_usuario
             flash('Login exitoso')
             return redirect(url_for('menu.inicio_usuarios'))
         else:
             print("Credenciales inválidas")
-            flash('Credenciales inválidas')
-            
+            flash('Credenciales inválidas')      
     return render_template('login.html')
 
 

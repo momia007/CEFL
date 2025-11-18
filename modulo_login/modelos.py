@@ -1,3 +1,4 @@
+# modulo_login/modelos.py
 # Usuarios, roles, permisos
 from servicios.db import db
 from werkzeug.security import check_password_hash
@@ -11,6 +12,7 @@ class Usuario(db.Model):
     password_hash = db.Column(db.String(255))
     email = db.Column(db.String(100))
     fecha_creacion = db.Column(db.DateTime)
+    nivel = db.Column(db.String(20))
     activo = db.Column(db.Boolean)
 
     def verificar_password(self, password):

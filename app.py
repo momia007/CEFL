@@ -1,7 +1,10 @@
+# app.py
+
 from flask import Flask
 from rutas.menu import menu_bp
+from rutas.inscripciones import inscripciones_bp
 from servicios.utils import obtener_version
-from servicios.db import db
+from servicios.db import db, get_connection
 from modulo_login import modulo_login_bp
 from dotenv import load_dotenv
 import os
@@ -27,12 +30,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 @app.context_processor
+def inject_config():
+    conn = get_connection()
+    if conn:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT valor FROM configuracion WHERE clave = 'inscripciones_habilitadas'")
+            resultado = cursor.fetchone()
+        conn.close()
+        return {'inscripciones_habilitadas': resultado['valor'] if resultado else 'no'}
+    return {'inscripciones_habilitadas': 'no'}
+
+@app.context_processor
 def inject_version():
     return dict(version=obtener_version())
 
 # ✅ REGISTRAR BLUEPRINTS
 app.register_blueprint(menu_bp)
 app.register_blueprint(modulo_login_bp, url_prefix='/auth')
+app.register_blueprint(inscripciones_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)

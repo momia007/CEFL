@@ -12,6 +12,17 @@
     border-radius: 4px;
     z-index: 10;
 }
+.usuario-logueado {
+    position: absolute;
+    top: 40px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    z-index: 10;
+}
 
 /* Contenedor principal */
 form {

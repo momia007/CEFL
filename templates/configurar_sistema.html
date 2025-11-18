@@ -1,0 +1,31 @@
+<!-- templates/configurar_sistema.html -->
+
+{% extends 'parciales/base.html' %}
+
+{% block titulo %}Configuración del sistema{% endblock %}
+
+{% block contenido %}
+
+<h2>Configuraciones generales</h2>
+
+<form method="POST">
+  <label>
+    <input type="checkbox" name="inscripciones_habilitadas" value="si"
+      {% if config.inscripciones_habilitadas == 'si' %}checked{% endif %}>
+    Habilitar inscripciones
+  </label><br>
+
+  <button type="submit">Guardar cambios</button>
+</form>
+
+{% endblock %}
+
+{% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+       <div class="alert">
+    {% for mensaje in mensajes %}
+        <p>{{ mensaje }}</p>
+    {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}

@@ -1,3 +1,4 @@
+# config.py
 class Config:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///cflb.db'  # o tu URI real
     SQLALCHEMY_TRACK_MODIFICATIONS = False

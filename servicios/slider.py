@@ -1,3 +1,5 @@
+# servicios/slider.py
+
 import os
 
 def obtener_slider(carpeta):

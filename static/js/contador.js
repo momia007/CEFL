@@ -1,3 +1,4 @@
+// static/js/contador.js
 
     // Fecha objetivo (Ajusta la fecha y hora según tu necesidad)
 const fechaObjetivo = new Date("July 30, 2025 09:00:00").getTime();

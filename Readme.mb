@@ -1,0 +1,87 @@
+# 🌐 Plataforma de Inscripciones y Gestión de Cursos – CFLMB
+
+Este proyecto es una aplicación web desarrollada con **Flask** para gestionar inscripciones, cursos y contenidos institucionales del Centro de Formación Laboral "Dr. Manuel Belgrano". Está diseñada para ser modular, segura y fácilmente desplegable en servidores como DonWeb.
+
+---
+
+## 🚀 Características principales
+
+- 🔐 Sistema de login con control de acceso por nivel (`Super`, `Admin`, `Usuario`)
+- 🧾 Formulario de inscripción dinámico con validaciones y carga de cursos desde base de datos
+- 🗂️ Panel administrativo para carga y visualización de cursos
+- 🖼️ Carrusel de imágenes dinámico para secciones públicas
+- ⚙️ Configuración del sistema desde el panel de usuario
+- 🌍 Soporte para múltiples países y provincias
+- 📦 Estructura modular con Blueprints y SQLAlchemy
+
+---
+
+## 🧱 Estructura del proyecto
+
+/cefl
+├── app.py
+├──.env
+├── requirements.txt
+├── config.py
+├── modulo_login/
+│ ├── blueprint.py
+│ ├── modelos.py
+│ ├── rutas.py
+├── rutas/
+│ └── menu.py
+├── servicios/
+│ ├── db.py
+│ ├── cursos.py
+│ ├── slider.py
+│ ├── utils.py
+│ ├── controladores.py
+│ └── ...
+├── templates/
+│ ├── parciales/
+│ ├── login.html
+│ ├── inscripciones.html
+│ ├── admin_cursos.html
+│ └── ...
+├── static/
+│ ├── css/
+│ ├── js/
+│ └── img/
+
+
+
+---
+
+## ⚙️ Requisitos
+
+- Python 3.10+
+- MySQL o MariaDB
+- Entorno virtual (recomendado)
+
+---
+
+## 📦 Instalación
+
+⚙️ 1. Clonar el repositorio:
+
+```bash
+git clone https://github.com/tu_usuario/tu_repositorio.git
+cd tu_repositorio
+
+⚙️ Crear entorno virtual e instalar dependencias:
+
+python -m venv venv
+source venv/bin/activate  # o venv\Scripts\activate en Windows
+pip install -r requirements.txt
+
+⚙️ Configurar variables de entorno en .env:
+
+DB_HOST=localhost
+DB_USER=tu_usuario
+DB_PASS=tu_contraseña
+DB_NAME=nombre_base
+SECRET_KEY=clave_segura
+
+⚙️ Iniciar la aplicación:
+
+python app.py
+

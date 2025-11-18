@@ -1,3 +1,5 @@
+# servicios/provincias.py
+
 from .db import get_connection
 
 def obtener_provincias():

@@ -1,3 +1,5 @@
+// static/js/menu.js
+
 function alternarMenu() {
     document.querySelector(".lista-barra").classList.toggle("active");
 }

@@ -1,3 +1,5 @@
+# servicios/utils.py
+
 def formatear_hora(hora_raw):
     try:
         # Si es timedelta

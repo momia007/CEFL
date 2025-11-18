@@ -1,16 +1,27 @@
+<!-- templates/parciales/barra_menu.html -->
+
 <nav class="nav-barra">
     <button onclick="alternarMenu()" class="Button_menu">&#9776;</button>           <!-- icono menu -->
     <ul class="lista-barra">
         <li><a href="{{url_for('menu.inicio')}}">Inicio</a></li>
         <li class="oculto"><a href="en_construccion.html">Talleres</a></li>
         <li class="oculto"><a href="en_construccion.html">Bachiller</a></li>
-        <li class="oculto"><a href="{{ url_for('menu.inscripciones') }}">Inscripciones</a></li>
+        {% if inscripciones_habilitadas == 'si' %}
+            <li><a href="{{ url_for('inscripciones.formulario_inscripciones') }}">Inscripciones</a></li>
+        {% else %}
+            <li class="oculto"><a href="{{ url_for('menu.inscripciones') }}">Inscripciones</a></li>
+        {% endif %}
         <li><a href="{{url_for('menu.eventos')}}">Eventos</a></li>
         <li class="oculto"><a href="en_construccion.html">Historia</a></li>
         <li class="oculto"><a href="en_construccion.html">Cooperadora</a></li>
         <li class="oculto"><a href="en_construccion.html">Quienes somos</a></li>
         <li class="oculto"><a href="en_construccion.html">Contacto</a></li>
         <li class="oculto"><a href="{{ url_for('menu.listado_cursos') }}">Cursos</a></li>
-        <li><a href="{{ url_for('modulo_login.login') }}">Acceder</a></li>
+        {% if session.get('usuario') %}
+            <li><a href="{{ url_for('menu.inicio_usuarios') }}">Inicio usuarios</a></li>
+        {% else %}
+            <li><a href="{{ url_for('modulo_login.login') }}">Acceder</a></li>
+        {% endif %}
+        
         </ul>
 </nav>

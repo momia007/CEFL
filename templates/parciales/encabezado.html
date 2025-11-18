@@ -1,5 +1,11 @@
+    <!-- templates/parciales/encabezado.html -->
+    
     <header class="header">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
         <img class="banner-web" src="{{ url_for('static', filename='img/banner-web.jpg') }}" alt="Banner Institucional">
         <a href="{{ url_for('menu.inicio') }}" class="boton_pag_principal"></a>
         <span class="version-tag">{{ version }}</span>
+        {% if session.get('usuario') %}
+            <span class="usuario-logueado">Usuario: {{ session['usuario']['nombre'] }}</span>
+        {% endif %}
     </header>

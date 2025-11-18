@@ -1,3 +1,5 @@
+<!-- templates/inscripciones.html -->
+
 {% extends 'parciales/base.html' %}
 
 {% block titulo %}Inicio{% endblock %}
@@ -7,10 +9,11 @@
 {% endblock %}
 
 {% block contenido %}
-    <main class="contenedor">
-        <h1>Formulario de Inscripción</h1>
-        <p>Seleccioná el curso al que querés inscribirte y completá tus datos.</p>
+<main class="contenedor">
+    <h1>Formulario de Inscripción</h1>
+    <p>Seleccioná el curso al que querés inscribirte y completá tus datos.</p>
 
+    <form id="form-inscripcion" method="POST" action="{{ url_for('inscripciones.inscribirse') }}">
         <div class="campo">
             <label for="nikname">Curso:</label>
             <select id="nikname" name="nikname" required>
@@ -21,148 +24,150 @@
             </select>
 
             <label for="horario">Horario:</label>
-            <select id="horario" name="horario" disabled>
+            <select id="horario" name="horario">
                 <option value="" disabled selected>-- Seleccionar opción --</option>
             </select>
 
+            <!-- Campo oculto que siempre guarda el id del curso -->
+            <input type="hidden" id="curso_id" name="curso_id">
+
             <label id="dias-label" class="dias-info" style="margin-top: 1rem; display: none;">
                 Días: <span id="dias-texto"></span>
-                <p></p>
             </label>
-
         </div>
 
-        <form id="form-inscripcion" method="POST" action="/inscribirse">
-            <div class="campo">
-                <label for="apellido">Apellido/s:</label>
-                <input type="text" id="apellido" name="apellido" required>
-            </div>
+        <div class="campo">
+            <label for="apellido">Apellido/s:</label>
+            <input type="text" id="apellido" name="apellido" required>
+        </div>
 
-            <div class="campo">
-                <label for="nombre">Nombre/s completo/s:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
+        <div class="campo">
+            <label for="nombre">Nombre/s completo/s:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
 
-            <div class="campo">
-                <label for="dni">DNI (solo numeros):</label>
-                <input type="text" id="dni" name="dni" maxlength="8" required>
-            </div>
+        <div class="campo">
+            <label for="dni">DNI (solo números):</label>
+            <input type="text" id="dni" name="dni" maxlength="8" required>
+        </div>
 
-            <div class="campo">
-                <label for="cuil">CUIL N° (solo numeros):</label>
-                <input type="text" id="cuil" name="cuil" maxlength="11" pattern="\d{11}" required>
-            </div>
+        <div class="campo">
+            <label for="cuil">CUIL N° (solo números):</label>
+            <input type="text" id="cuil" name="cuil" maxlength="11" pattern="\d{11}" required>
+        </div>
 
-            <div class="campo">
-                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-            </div>
+        <div class="campo">
+            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        </div>
 
-            <div class="campo">
-                <label for="sexo">Sexo:</label>
-                <select id="sexo" name="sexo" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                    <option value="X">Otro</option>
-                </select>
-            </div>
+        <div class="campo">
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo" required>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="F">Femenino</option>
+                <option value="M">Masculino</option>
+                <option value="X">Otro</option>
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="pais_nac">País de Nacimiento:</label>
-                <select id="pais_nac" name="pais_nac" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    {% for pais in paises %}
-                        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <div class="campo">
+            <label for="pais_nac">País de Nacimiento:</label>
+            <select id="pais_nac" name="pais_nac" required>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                {% for pais in paises %}
+                    <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="nacionalidad">Nacionalidad:</label>
-                <select id="nacionalidad" name="nacionalidad" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    {% for pais in paises %}
-                        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <div class="campo">
+            <label for="nacionalidad">Nacionalidad:</label>
+            <select id="nacionalidad" name="nacionalidad" required>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                {% for pais in paises %}
+                    <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="provincia_nac">Provincia de Nacimiento:</label>
-                <select id="provincia_nac" name="provincia_nac" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    {% for provincia in provincias %}
-                        <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <div class="campo">
+            <label for="provincia_nac">Provincia de Nacimiento:</label>
+            <select id="provincia_nac" name="provincia_nac">
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                {% for provincia in provincias %}
+                    <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="lugar_nac">Lugar_nac:</label>
-                    <input type="text" id="localidad_nac" name="localidad_nac" required>
-                </select>
-            </div>
+        <div class="campo">
+            <label for="localidad_nac">Lugar de Nacimiento:</label>
+            <input type="text" id="localidad_nac" name="localidad_nac">
+        </div>
 
-            <div class="campo">
-                <label for="direccion">Dirección:</label>
-                <input id="direccion" name="direccion" required>
-            </div>
+        <div class="campo">
+            <label for="direccion">Dirección:</label>
+            <input id="direccion" name="direccion" required>
+        </div>
 
-            <div class="barrio">
-                <label for="barrio">Barrio:</label>
-                <input type="text" id="barrio" name="barrio">
-            </div>
+        <div class="campo">
+            <label for="barrio">Barrio:</label>
+            <input type="text" id="barrio" name="barrio">
+        </div>
 
-            <div class="campo">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
-            </div>
-            
-            <div class="campo">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required placeholder="ejemplo@dominio.com">>
-            </div>
+        <div class="campo">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
+        </div>
+        
+        <div class="campo">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" 
+                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
+                   required placeholder="ejemplo@dominio.com">
+        </div>
 
-            <div class="campo">
-                <label for="estudios">Nivel de estudios alcanzado:</label>
-                <select id="estudios" name="estudios" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    <option value="primario incompleto">Primario incompleto</option>
-                    <option value="primario completo">Primario completo</option>
-                    <option value="secundario incompleto">Secundario incompleto</option>
-                    <option value="secundario incompleto">Secundario completo</option>
-                </select>
-            </div>
+        <div class="campo">
+            <label for="estudios">Nivel de estudios alcanzado:</label>
+            <select id="estudios" name="estudios" required>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="primario incompleto">Primario incompleto</option>
+                <option value="primario completo">Primario completo</option>
+                <option value="secundario incompleto">Secundario incompleto</option>
+                <option value="secundario completo">Secundario completo</option>
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="estado_laboral:">Estado Laboral</label>
-                <select id="estado_laboral" name="estado_laboral" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    <option value="desempleado">Desempleado</option>
-                    <option value="empleado">Empleado</option>
-                </select>
-            </div>
+        <div class="campo">
+            <label for="estado_laboral">Estado Laboral:</label>
+            <select id="estado_laboral" name="estado_laboral" required>
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="desempleado">Desempleado</option>
+                <option value="empleado">Empleado</option>
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="cud">¿Posee certificado de discapacidad? :</label>
-                <select id="cud" name="cud" required>
-                    <option value="" disabled selected>-- Seleccionar opción --</option>
-                    <option value="Si">No</option>
-                    <option value="No">Si</option>
-                </select>
-            </div>
+        <div class="campo">
+            <label for="cud">¿Posee certificado de discapacidad?:</label>
+            <select id="cud" name="cud" required default="NO">
+                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+            </select>
+        </div>
 
-            <div class="campo">
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
-            </div>
-            
-            <button type="submit">Inscribirme</button>
-        </form>
-    </main>
-
+        <div class="campo">
+            <label for="telefono_emergencia">Teléfono de Emergencia:</label>
+            <input type="text" id="telefono_emergencia" name="telefono_emergencia" required>
+        </div>
+        
+        <button type="submit">Inscribirme</button>
+    </form>
+</main>
 {% endblock %}
+
+
 {% block scripts_extra %}
 
     <script id="data-cursos" type="application/json">
@@ -254,6 +259,40 @@
         }
     });
 
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const paisSelect = document.getElementById("pais_nac");
+            const provinciaSelect = document.getElementById("provincia_nac");
+            const localidadInput = document.getElementById("localidad_nac");
+
+            paisSelect.addEventListener("change", function() {
+                const seleccionado = paisSelect.options[paisSelect.selectedIndex].text.toLowerCase();
+
+            if (seleccionado === "argentina") {
+                provinciaSelect.disabled = false;
+                provinciaSelect.required = true;
+                provinciaSelect.classList.remove("disabled");
+
+                localidadInput.disabled = true;
+                localidadInput.required = false;
+                localidadInput.value = "";
+                localidadInput.placeholder = "No requerido (solo para extranjeros)";
+                localidadInput.classList.add("disabled");
+            } else {
+                provinciaSelect.disabled = true;
+                provinciaSelect.required = false;
+                provinciaSelect.value = "";
+                provinciaSelect.placeholder = "No requerido (solo para argentinos)";
+                provinciaSelect.classList.add("disabled");
+
+                localidadInput.disabled = false;
+                localidadInput.required = true;
+                localidadInput.classList.remove("disabled");
+            }
+        });
+    });
     </script>
 {% endblock %}
 

@@ -1,3 +1,5 @@
+# servicios/cursos.py
+
 from .db import get_connection
 
 def insertar_curso(nombre, nikname, descripcion, cuatrimestre, anio, modalidad, activo, hora_inicio, hora_fin, dias):

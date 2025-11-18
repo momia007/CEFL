@@ -1,3 +1,5 @@
+# modulo_login/blueprint.py
+
 # define el Blueprint
 from flask import Blueprint
 

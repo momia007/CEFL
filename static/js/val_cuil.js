@@ -1,3 +1,5 @@
+// static/js/val_cuil.js
+
 function validarCUIL(cuil) {
   if (!/^\d{11}$/.test(cuil)) return false;
 

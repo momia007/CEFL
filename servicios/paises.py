@@ -1,3 +1,5 @@
+# servicios/paises.py
+
 from .db import get_connection
 
 def obtener_paises():

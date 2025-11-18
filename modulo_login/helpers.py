@@ -1,3 +1,5 @@
+# modulo_login/helpers.py
+
 # validaciones, carga de variables
 
 def cargar_contexto_usuario(usuario_id):
