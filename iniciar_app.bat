@@ -6,6 +6,9 @@ echo Activando entorno virtual...
 call venv\Scripts\activate
 
 echo Iniciando la aplicacion Flask...
+cd backend
 start "" http://127.0.0.1:5000
 start /B python app.py
+cd ..
 pause
+
