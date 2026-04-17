@@ -1,4 +1,4 @@
-<!-- templates/configurar_sistema.html -->
+<!-- cefl\backend\templates\configurar_sistema.html -->
 
 {% extends 'parciales/base.html' %}
 
@@ -6,26 +6,21 @@
 
 {% block contenido %}
 
-<h2>Configuraciones generales</h2>
-
-<form method="POST">
-  <label>
-    <input type="checkbox" name="inscripciones_habilitadas" value="si"
-      {% if config.inscripciones_habilitadas == 'si' %}checked{% endif %}>
-    Habilitar inscripciones
-  </label><br>
-
-  <button type="submit">Guardar cambios</button>
-</form>
-
+<h2>Panel de Configuración</h2>
+<div class="config-panel">
+    <a class="config-card" href="{{ url_for('modulo_login.nuevo_usuario') }}">
+        <h3>Usuarios</h3>
+        <p>Crear, editar y administrar usuarios</p>
+    </a>
+    <a class="config-card" href="{{ url_for('inscripciones.configurar_inscripciones') }}">
+        <h3>Inscripciones</h3>
+        <p>Abrir o cerrar inscripciones</p>
+    </a>
+    <a class="config-card" href="{{ url_for('menu.admin_cursos') }}">
+        <h3>Cursos</h3>
+        <p>Modificar cursos y horarios</p>
+    </a>
+    <!-- Más opciones se agregan aquí -->
+</div>
 {% endblock %}
 
-{% with mensajes = get_flashed_messages() %}
-    {% if mensajes %}
-       <div class="alert">
-    {% for mensaje in mensajes %}
-        <p>{{ mensaje }}</p>
-    {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}

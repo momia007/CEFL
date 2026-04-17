@@ -1,12 +1,12 @@
 # archivo: rutas/inscripciones.py
 
 from flask import Blueprint, request, redirect, url_for, flash, render_template, session
-from servicios.db import get_connection
-from servicios.paises import obtener_paises
-from servicios.provincias import obtener_provincias
-from servicios.cursos import obtener_cursos
-from servicios.utils import ordenar_paises, formatear_hora
-from servicios.controladores import requiere_nivel
+from backend.servicios.db import get_connection
+from backend.servicios.paises import obtener_paises
+from backend.servicios.provincias import obtener_provincias
+from backend.servicios.cursos import obtener_cursos
+from backend.servicios.utils import ordenar_paises, formatear_hora
+from backend.servicios.controladores import requiere_nivel
 from collections import defaultdict
 
 inscripciones_bp = Blueprint('inscripciones', __name__)
@@ -44,7 +44,7 @@ def formulario_inscripciones():
         hora_inicio = formatear_hora(curso['hora_inicio'])
         hora_fin = formatear_hora(curso['hora_fin'])
         cursos_por_nik[curso['nikname']].append({
-            'id': curso['id_curso'],
+            'id_curso': curso['id_curso'],
             'horario': f"{hora_inicio} a {hora_fin} hs",
             'modalidad': curso['modalidad'],
             'dias': curso['dias']
@@ -66,7 +66,14 @@ def inscribirse():
     # Convertir el valor de cud a 0/1
     cud_valor = 1 if request.form.get('cud') == 'Si' else 0
     
-    curso_id = request.form.get('horario')
+    curso_id = request.form.get('curso_id')  # Recibimos el curso_id desde el formulario   
+
+    print(">>> curso_id recibido en el POST:", curso_id)
+
+    # 🔎 Validación inicial: que venga un curso_id
+    if not curso_id:
+        flash("❌ No se seleccionó ningún curso")
+        return redirect(url_for('inscripciones.formulario_inscripciones'))
 
     datos = {
         'apellido': request.form.get('apellido'),
@@ -116,9 +123,15 @@ def inscribirse():
                     datos['estado_laboral'], datos['cud'], datos['telefono_emergencia']
                 ))
                 alumno_id = cursor.lastrowid
+
             # 3️⃣ Control de cupos
             cursor.execute("SELECT cupo_maximo, cupo_espera FROM cursos WHERE id_curso = %s", (curso_id,))
             curso = cursor.fetchone()
+
+            # 🔎 Validación: que exista el curso
+            if not curso:
+                flash("❌ Curso no encontrado en la base de datos")
+                return redirect(url_for('inscripciones.formulario_inscripciones'))
 
             cursor.execute("SELECT COUNT(*) AS total FROM inscripciones WHERE curso_id = %s AND estado='confirmada'", (curso_id,))
             total_confirmados = cursor.fetchone()['total']
@@ -136,11 +149,11 @@ def inscribirse():
                 flash("❌ No hay más cupo ni lista de espera disponible para este curso")
                 return redirect(url_for('inscripciones.formulario_inscripciones'))
             
-            # 3️⃣ Registrar inscripción
+            # 4️⃣ Registrar inscripción
             cursor.execute("""
-                INSERT INTO inscripciones (alumno_id, curso_id)
-                VALUES (%s, %s)
-            """, (alumno_id, curso_id))
+                INSERT INTO inscripciones (alumno_id, curso_id, estado)
+                VALUES (%s, %s, %s)
+            """, (alumno_id, curso_id, estado))
 
         conn.commit()
         conn.close()
@@ -149,6 +162,8 @@ def inscribirse():
         flash("❌ Error al conectar con la base de datos")
 
     return redirect(url_for('inscripciones.formulario_inscripciones'))
+
+
 
 @inscripciones_bp.route('/configurar_inscripciones', methods=['GET', 'POST'])
 @requiere_nivel('Super', 'Admin')
@@ -176,5 +191,4 @@ def configurar_inscripciones():
     else:
         flash('Error al conectar con la base de datos')
 
-    return render_template('configuracion.html', inscripciones_habilitadas=estado_actual)
-
+    return render_template('configurar_inscripciones.html', inscripciones_habilitadas=estado_actual)

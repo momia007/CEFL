@@ -21,29 +21,20 @@ def insertar_curso(nombre, nikname, descripcion, cuatrimestre, anio, modalidad, 
 
 def obtener_cursos():
     conn = get_connection()
-    if conn is None:
-        print("❌ No se pudo conectar a la base de datos")
-        return []
-
-    cursor = conn.cursor()
-    # ⚠️ Corrección: FROM cursos, no paises. WHERE va antes de ORDER BY
-    cursor.execute("""
-        SELECT 
-            id_curso,
-            nombre,
-            nikname,
-            descripcion,
-            cuatrimestre,
-            anio,
-            modalidad,
-            hora_inicio,
-            hora_fin,
-            dias,
-            activo
-        FROM cursos
-        ORDER BY hora_inicio ASC
-    """)
-    cursos = cursor.fetchall()
-    conn.close()
+    cursos = []
+    if conn:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT c.id_curso, c.nombre, c.nikname, c.hora_inicio, c.hora_fin, c.modalidad, c.dias,
+                       c.cupo_maximo, c.cupo_espera,
+                       (SELECT COUNT(*) FROM inscripciones i WHERE i.curso_id = c.id_curso AND i.estado='Confirmado') AS inscriptos,
+                       (SELECT COUNT(*) FROM inscripciones i WHERE i.curso_id = c.id_curso AND i.estado='En espera') AS en_espera
+                FROM cursos c
+            """)
+            cursos = cursor.fetchall()
+        conn.close()
     return cursos
+
+
+
 

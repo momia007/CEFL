@@ -1,19 +1,22 @@
-<!-- templates/inscripciones.html -->
-
 {% extends 'parciales/base.html' %}
 
-{% block titulo %}Inicio{% endblock %}
+{% block titulo %}Inscripciones{% endblock %}
 
 {% block estilos_extra %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/inscripciones.css') }}">
 {% endblock %}
 
 {% block contenido %}
+<h2>Inscripciones</h2>
+
+{% if inscripciones_habilitadas == 'si' %}
 <main class="contenedor">
     <h1>Formulario de Inscripción</h1>
     <p>Seleccioná el curso al que querés inscribirte y completá tus datos.</p>
 
     <form id="form-inscripcion" method="POST" action="{{ url_for('inscripciones.inscribirse') }}">
+        <!-- Selección de curso y horario -->
+         <input type="hidden" id="curso_id" name="curso_id">
         <div class="campo">
             <label for="nikname">Curso:</label>
             <select id="nikname" name="nikname" required>
@@ -27,236 +30,160 @@
             <select id="horario" name="horario">
                 <option value="" disabled selected>-- Seleccionar opción --</option>
                 {% for curso in cursos %}
-                        <option value="{{ curso.id_curso }}"
-                            {% if curso.inscriptos >= curso.cupo_maximo and curso.en_espera >= curso.cupo_espera %}
-                                disabled
-                            {% endif %}>
-                            
-                            {{ curso.nombre }} - Cupo: {{ curso.inscriptos }}/{{ curso.cupo_maximo }}
-                            
-                            {% if curso.inscriptos < curso.cupo_maximo %}
-                                (Disponible)
-                            {% elif curso.en_espera < curso.cupo_espera %}
-                                (Lista de espera disponible)
-                            {% else %}
-                                (Sin cupo)
-                            {% endif %}
-                        </option>
-                    {% endfor %}
+                    <option value="{{ curso.id_curso }}"
+                        {% if curso.inscriptos >= curso.cupo_maximo and curso.en_espera >= curso.cupo_espera %}
+                            disabled
+                        {% endif %}>
+                        {{ curso.nombre }} - Cupo: {{ curso.inscriptos }}/{{ curso.cupo_maximo }}
+                        {% if curso.inscriptos < curso.cupo_maximo %}
+                            (Disponible)
+                        {% elif curso.en_espera < curso.cupo_espera %}
+                            (Lista de espera disponible)
+                        {% else %}
+                            (Sin cupo)
+                        {% endif %}
+                    </option>
+                {% endfor %}
             </select>
-
-            <!-- Campo oculto que siempre guarda el id del curso -->
-            <input type="hidden" id="curso_id" name="curso_id">
 
             <label id="dias-label" class="dias-info" style="margin-top: 1rem; display: none;">
                 Días: <span id="dias-texto"></span>
             </label>
         </div>
 
-        <div class="campo">
-            <label for="apellido">Apellido/s:</label>
-            <input type="text" id="apellido" name="apellido" required>
-        </div>
-
-        <div class="campo">
-            <label for="nombre">Nombre/s completo/s:</label>
-            <input type="text" id="nombre" name="nombre" required>
-        </div>
-
-        <div class="campo">
-            <label for="dni">DNI (solo números):</label>
-            <input type="text" id="dni" name="dni" maxlength="8" required>
-        </div>
-
-        <div class="campo">
-            <label for="cuil">CUIL N° (solo números):</label>
-            <input type="text" id="cuil" name="cuil" maxlength="11" pattern="\d{11}" required>
-        </div>
-
-        <div class="campo">
-            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-        </div>
-
-        <div class="campo">
-            <label for="sexo">Sexo:</label>
+                <!-- Datos personales -->
+        <div class="campo"><label for="apellido">Apellido/s:</label><input type="text" id="apellido" name="apellido" required></div>
+        <div class="campo"><label for="nombre">Nombre/s completo/s:</label><input type="text" id="nombre" name="nombre" required></div>
+        <div class="campo"><label for="dni">DNI:</label><input type="text" id="dni" name="dni" maxlength="8" required></div>
+        <div class="campo"><label for="cuil">CUIL:</label><input type="text" id="cuil" name="cuil" maxlength="11" pattern="\d{11}" required></div>
+        <div class="campo"><label for="fecha_nacimiento">Fecha de nacimiento:</label><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required></div>
+        <div class="campo"><label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo" required>
-                <option value="" disabled selected>-- Seleccionar opción --</option>
-                <option value="F">Femenino</option>
-                <option value="M">Masculino</option>
-                <option value="X">Otro</option>
+                <option value="" disabled selected>-- Seleccionar --</option>
+                <option value="F">Femenino</option><option value="M">Masculino</option><option value="X">Otro</option>
             </select>
         </div>
-
-        <div class="campo">
-            <label for="pais_nac">País de Nacimiento:</label>
+        <div class="campo"><label for="pais_nac">País de Nacimiento:</label>
             <select id="pais_nac" name="pais_nac" required>
-                <option value="" disabled selected>-- Seleccionar opción --</option>
-                {% for pais in paises %}
-                    <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                {% endfor %}
+                <option value="" disabled selected>-- Seleccionar --</option>
+                {% for pais in paises %}<option value="{{ pais.id }}">{{ pais.nombre }}</option>{% endfor %}
             </select>
         </div>
-
-        <div class="campo">
-            <label for="nacionalidad">Nacionalidad:</label>
+        <div class="campo"><label for="nacionalidad">Nacionalidad:</label>
             <select id="nacionalidad" name="nacionalidad" required>
-                <option value="" disabled selected>-- Seleccionar opción --</option>
-                {% for pais in paises %}
-                    <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                {% endfor %}
+                <option value="" disabled selected>-- Seleccionar --</option>
+                {% for pais in paises %}<option value="{{ pais.id }}">{{ pais.nombre }}</option>{% endfor %}
             </select>
         </div>
-
-        <div class="campo">
-            <label for="provincia_nac">Provincia de Nacimiento:</label>
+        <div class="campo"><label for="provincia_nac">Provincia de Nacimiento:</label>
             <select id="provincia_nac" name="provincia_nac">
-                <option value="" disabled selected>-- Seleccionar opción --</option>
-                {% for provincia in provincias %}
-                    <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
-                {% endfor %}
+                <option value="" disabled selected>-- Seleccionar --</option>
+                {% for provincia in provincias %}<option value="{{ provincia.id }}">{{ provincia.nombre }}</option>{% endfor %}
             </select>
         </div>
-
-        <div class="campo">
-            <label for="localidad_nac">Lugar de Nacimiento:</label>
-            <input type="text" id="localidad_nac" name="localidad_nac">
-        </div>
-
-        <div class="campo">
-            <label for="direccion">Dirección:</label>
-            <input id="direccion" name="direccion" required>
-        </div>
-
-        <div class="campo">
-            <label for="barrio">Barrio:</label>
-            <input type="text" id="barrio" name="barrio">
-        </div>
-
-        <div class="campo">
-            <label for="telefono">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" required>
-        </div>
-        
-        <div class="campo">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" 
-                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
-                   required placeholder="ejemplo@dominio.com">
-        </div>
-
-        <div class="campo">
-            <label for="estudios">Nivel de estudios alcanzado:</label>
+        <div class="campo"><label for="localidad_nac">Lugar de Nacimiento:</label><input type="text" id="localidad_nac" name="localidad_nac"></div>
+        <div class="campo"><label for="direccion">Dirección:</label><input id="direccion" name="direccion" required></div>
+        <div class="campo"><label for="barrio">Barrio:</label><input type="text" id="barrio" name="barrio"></div>
+        <div class="campo"><label for="telefono">Teléfono:</label><input type="text" id="telefono" name="telefono" required></div>
+        <div class="campo"><label for="email">Email:</label><input type="email" id="email" name="email" required></div>
+        <div class="campo"><label for="estudios">Nivel de estudios:</label>
             <select id="estudios" name="estudios" required>
-                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="" disabled selected>-- Seleccionar --</option>
                 <option value="primario incompleto">Primario incompleto</option>
                 <option value="primario completo">Primario completo</option>
                 <option value="secundario incompleto">Secundario incompleto</option>
                 <option value="secundario completo">Secundario completo</option>
             </select>
         </div>
-
-        <div class="campo">
-            <label for="estado_laboral">Estado Laboral:</label>
+        <div class="campo"><label for="estado_laboral">Estado Laboral:</label>
             <select id="estado_laboral" name="estado_laboral" required>
-                <option value="" disabled selected>-- Seleccionar opción --</option>
+                <option value="" disabled selected>-- Seleccionar --</option>
                 <option value="desempleado">Desempleado</option>
                 <option value="empleado">Empleado</option>
             </select>
         </div>
-
-        <div class="campo">
-            <label for="cud">¿Posee certificado de discapacidad?:</label>
-            <select id="cud" name="cud" required default="NO">
-                <option value="" disabled selected>-- Seleccionar opción --</option>
-                <option value="Si">Si</option>
-                <option value="No">No</option>
+        <div class="campo"><label for="cud">¿Posee certificado de discapacidad?:</label>
+            <select id="cud" name="cud" required>
+                <option value="" disabled selected>-- Seleccionar --</option>
+                <option value="Si">Si</option><option value="No">No</option>
             </select>
         </div>
+        <div class="campo"><label for="telefono_emergencia">Teléfono de Emergencia:</label><input type="text" id="telefono_emergencia" name="telefono_emergencia" required></div>
 
-        <div class="campo">
-            <label for="telefono_emergencia">Teléfono de Emergencia:</label>
-            <input type="text" id="telefono_emergencia" name="telefono_emergencia" required>
-        </div>
-        
         <button type="submit">Inscribirme</button>
     </form>
 </main>
+{% else %}
+    <p>⛔ Las inscripciones están cerradas.</p>
+    <p>Se habilitarán en el próximo cuatrimestre.</p>
+{% endif %}
 {% endblock %}
 
-
 {% block scripts_extra %}
+<script id="data-cursos" type="application/json">
+    {{ cursos_por_nik | tojson | safe }}
+</script>
 
-    <script id="data-cursos" type="application/json">
-        {{ cursos_por_nik | tojson | safe }}
-    </script>
-
-    <script>
+<script>
     const cursosPorNik = JSON.parse(document.getElementById('data-cursos').textContent);
     const nikSelect = document.getElementById('nikname');
     const horarioSelect = document.getElementById('horario');
 
-
-    document.getElementById('dni').addEventListener('input', function (e) {
-        // Eliminar todo lo que no sea dígito
-        this.value = this.value.replace(/\D/g, '');
-
-        // Limitar a 8 caracteres
-        if (this.value.length > 8) {
-            this.value = this.value.slice(0, 8);
-        }
+    // Validación DNI
+    document.getElementById('dni').addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 8);
     });
 
+    // Cambio de curso → actualizar horarios
     nikSelect.addEventListener('change', function() {
-        const nik = this.value;
-        const opciones = cursosPorNik[nik] || [];
+    const nik = this.value;
+    const opciones = cursosPorNik[nik] || [];
+    horarioSelect.innerHTML = '';
 
-        // Limpiar horarios
-        horarioSelect.innerHTML = '';
+    if (opciones.length === 1) {
+        const unica = opciones[0];
+        const opt = document.createElement('option');
+        opt.value = unica.horario;   // solo texto informativo
+        opt.textContent = unica.horario;
+        horarioSelect.appendChild(opt);
 
-        if (opciones.length === 1) {
-            const unica = opciones[0];
+        // ✅ guardar id_curso en el hidden
+        document.getElementById('curso_id').value = unica.id_curso;
+    } else if (opciones.length > 1) {
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = '-- Seleccionar horario --';
+        horarioSelect.appendChild(defaultOpt);
+
+        opciones.forEach(op => {
             const opt = document.createElement('option');
-            opt.value = unica.id;
-            opt.textContent = `${unica.horario}`;
+            opt.value = op.horario;   // solo texto informativo
+            opt.textContent = op.horario;
             horarioSelect.appendChild(opt);
-            horarioSelect.disabled = true;
-        } else if (opciones.length > 1) {
-            const defaultOpt = document.createElement('option');
-            defaultOpt.value = '';
-            defaultOpt.textContent = '-- Seleccionar horario --';
-            horarioSelect.appendChild(defaultOpt);
+        });
 
-            opciones.forEach(op => {
-                const opt = document.createElement('option');
-                opt.value = op.id;
-                opt.textContent = `${op.horario}`;
-                horarioSelect.appendChild(opt);
-            });
-            horarioSelect.disabled = false;
-        } else {
-            horarioSelect.innerHTML = '<option value="">Sin horarios disponibles</option>';
-            horarioSelect.disabled = true;
-        }
+        // ✅ inicializar hidden con el primer curso por defecto
+        document.getElementById('curso_id').value = opciones[0].id_curso;
 
-        const diasLabel = document.getElementById('dias-label');
-        const diasTexto = document.getElementById('dias-texto');
+        // cuando el usuario elija un horario, actualizamos el hidden
+        horarioSelect.addEventListener('change', function() {
+            const seleccion = opciones.find(op => op.horario === this.value);
+            if (seleccion) {
+                document.getElementById('curso_id').value = seleccion.id_curso;
+            }
+        });
+    }
 
-        if (opciones.length >= 1) {
-            diasTexto.textContent = opciones[0].dias.replace(/,/g, ', ');
-            diasLabel.style.display = 'block';
-        } else {
-            diasTexto.textContent = '';
-            diasLabel.style.display = 'none';
-        }
 
-    });
+});
+
+    // Cambio de horario → actualizar días
     horarioSelect.addEventListener('change', function () {
         const nik = nikSelect.value;
         const opciones = cursosPorNik[nik] || [];
         const horarioSeleccionado = this.value;
 
-        const seleccion = opciones.find(op => op.id == horarioSeleccionado);
+        const seleccion = opciones.find(op => op.id_curso == horarioSeleccionado);
 
         const diasLabel = document.getElementById('dias-label');
         const diasTexto = document.getElementById('dias-texto');
@@ -275,17 +202,17 @@
             diasLabel.style.display = 'none';
         }
     });
+</script>
 
-    </script>
+<script>
+    // Lógica país/provincia/localidad
+    document.addEventListener("DOMContentLoaded", function() {
+        const paisSelect = document.getElementById("pais_nac");
+        const provinciaSelect = document.getElementById("provincia_nac");
+        const localidadInput = document.getElementById("localidad_nac");
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const paisSelect = document.getElementById("pais_nac");
-            const provinciaSelect = document.getElementById("provincia_nac");
-            const localidadInput = document.getElementById("localidad_nac");
-
-            paisSelect.addEventListener("change", function() {
-                const seleccionado = paisSelect.options[paisSelect.selectedIndex].text.toLowerCase();
+        paisSelect.addEventListener("change", function() {
+            const seleccionado = paisSelect.options[paisSelect.selectedIndex].text.toLowerCase();
 
             if (seleccionado === "argentina") {
                 provinciaSelect.disabled = false;
@@ -310,6 +237,5 @@
             }
         });
     });
-    </script>
+</script>
 {% endblock %}
-

@@ -1,0 +1,20 @@
+<!-- /BajaAlert/backend/templates/configurar_inscripciones.html -->
+<!-- html para configurar inscripciones -->
+
+{% extends 'parciales/base.html' %}
+{% block contenido %}
+<h2>Configuración de Inscripciones</h2>
+
+{% if inscripciones_habilitadas == 'si' %}
+    <p>✅ Las inscripciones están habilitadas.</p>
+    <form method="POST" action="{{ url_for('menu.configurar_inscripciones') }}">
+        <button type="submit" name="accion" value="cerrar">Cerrar inscripciones</button>
+    </form>
+{% else %}
+    <p>⛔ Las inscripciones están cerradas.</p>
+    <form method="POST" action="{{ url_for('menu.configurar_inscripciones') }}">
+        <button type="submit" name="accion" value="abrir">Abrir inscripciones</button>
+    </form>
+{% endif %}
+
+{% endblock %}

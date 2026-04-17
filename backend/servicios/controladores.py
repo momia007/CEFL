@@ -7,7 +7,7 @@ from functools import wraps
 
 def requiere_nivel(*niveles_permitidos):
     def decorador(func):
-        @wraps(func)
+        @wraps(func)  # <-- esto mantiene el nombre original de la función
         def wrapper(*args, **kwargs):
             usuario = session.get('usuario')
             print("Decorador: usuario en sesión:", usuario)

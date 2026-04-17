@@ -1,18 +1,20 @@
 # rutas/menu.py
 
+from argparse import Action
+
 from flask import Blueprint, session, flash, render_template, request, redirect, url_for
 from functools import wraps
-from servicios.db import get_connection
-from servicios.controladores import requiere_nivel
-from servicios.slider import obtener_slider
-from servicios.utils import ordenar_paises
-from servicios.paises import obtener_paises
-from servicios.provincias import obtener_provincias
-from servicios.cursos import insertar_curso
-from servicios.cursos import obtener_cursos
+from backend.servicios.db import get_connection
+from backend.servicios.controladores import requiere_nivel
+from backend.servicios.slider import obtener_slider
+from backend.servicios.utils import ordenar_paises
+from backend.servicios.paises import obtener_paises
+from backend.servicios.provincias import obtener_provincias
+from backend.servicios.cursos import insertar_curso
+from backend.servicios.cursos import obtener_cursos
 from collections import defaultdict
-from servicios.utils import formatear_hora
-from config import INSCRIPCIONES_HABILITADAS
+from backend.servicios.utils import formatear_hora
+from backend.config import INSCRIPCIONES_HABILITADAS
 
 
 menu_bp = Blueprint('menu', __name__)
@@ -25,10 +27,17 @@ def inicio():
 
 @menu_bp.route('/inscripciones')
 def inscripciones():
-    if not INSCRIPCIONES_HABILITADAS:
-        return render_template('inscripciones_cerradas.html')
+    conn = get_connection()
+    estado_actual = 'no'
+    if conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                "SELECT valor FROM configuracion WHERE clave = 'inscripciones_habilitadas'"
+            )
+            resultado = cursor.fetchone()
+            estado_actual = resultado['valor'] if resultado else 'no'
+        conn.close()
 
-    # lógica normal de inscripciones
     paises_raw = obtener_paises()
     paises = ordenar_paises(paises_raw)
     provincias = obtener_provincias()
@@ -41,17 +50,26 @@ def inscripciones():
         dias = curso['dias']
         cursos_por_nik[curso['nikname']].append({
             'id': curso['id_curso'],
+            'nombre': curso['nombre'],
             'horario': f"{hora_inicio} a {hora_fin} hs",
             'modalidad': curso['modalidad'],
-            'dias': dias
+            'dias': dias,
+            'inscriptos': curso['inscriptos'],
+            'cupo_maximo': curso['cupo_maximo'],
+            'en_espera': curso['en_espera'],
+            'cupo_espera': curso['cupo_espera']
         })
 
     return render_template(
         'inscripciones.html',
+        inscripciones_habilitadas=estado_actual,
         paises=paises,
         provincias=provincias,
+        cursos=cursos_raw,
         cursos_por_nik=cursos_por_nik
     )
+
+
 
 @menu_bp.route('/eventos')
 def eventos():
@@ -141,15 +159,15 @@ def configurar_inscripciones():
     if conn:
         with conn.cursor() as cursor:
             if request.method == 'POST':
-                print("Formulario recibido:", request.form)  # 🧪 Depuración
-                estado = 'si' if 'habilitar' in request.form else 'no'
+                print("Formulario recibido:", request.form)
+                accion = request.form.get('accion')
+                estado = 'si' if accion == 'abrir' else 'no'
                 cursor.execute(
                     "UPDATE configuracion SET valor = %s WHERE clave = 'inscripciones_habilitadas'",
                     (estado,)
                 )
                 conn.commit()
                 flash('Configuración actualizada')
-
             cursor.execute(
                 "SELECT valor FROM configuracion WHERE clave = 'inscripciones_habilitadas'"
             )
@@ -159,6 +177,6 @@ def configurar_inscripciones():
     else:
         flash('Error al conectar con la base de datos')
 
-    return render_template('configuracion.html', inscripciones_habilitadas=estado_actual)
+    return render_template('configurar_inscripciones.html', inscripciones_habilitadas=estado_actual)
 
 

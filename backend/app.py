@@ -1,13 +1,14 @@
-# backend/app.py
+# cefl\backend\app.py
 
 from flask import Flask
-from rutas.menu import menu_bp
-from rutas.inscripciones import inscripciones_bp
-from servicios.utils import obtener_version
-from servicios.db import db, get_connection
-from modulo_login import modulo_login_bp
+from backend.rutas.menu import menu_bp
+from backend.rutas.inscripciones import inscripciones_bp
+from backend.servicios.utils import obtener_version
+from backend.servicios.db import db, get_connection
+from backend.modulo_login import modulo_login_bp
 from dotenv import load_dotenv
 import os
+
 
 # ✅ Cargar variables de entorno
 load_dotenv()

@@ -20,7 +20,7 @@
         {% if session.get('usuario') %}
             <li><a href="{{ url_for('menu.inicio_usuarios') }}">Inicio usuarios</a></li>
         {% else %}
-            <li><a href="{{ url_for('login.login') }}">Acceder</a></li>
+            <li><a href="{{ url_for('modulo_login.login') }}">Acceder</a></li>
         {% endif %}
         
         </ul>

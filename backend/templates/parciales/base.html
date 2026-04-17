@@ -13,6 +13,16 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/LOGO_sin_fondo.png') }}">
 </head>
 <body id="body_inscripciones">
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            <ul class="flashes">
+                {% for mensaje in mensajes %}
+                    <li>{{ mensaje }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
 
     {% include 'parciales/encabezado.html' %}
     {% include 'parciales/barra_menu.html' %}
